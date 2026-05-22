@@ -599,6 +599,10 @@ struct GroupRow: View {
 struct CardRow: View {
     var card: BusinessCard
     var groups: [TagGroup]
+    
+    @State private var showDialog = false
+    @State private var selectedText = "未選択"
+
     var body: some View {
         VStack(alignment: .leading) {
             Text(card.company)
@@ -607,8 +611,46 @@ struct CardRow: View {
             
             ForEach (card.rawText.components(separatedBy: "\n"), id: \.self) { rawtext in
                 Button(rawtext) {
-                    
+                    showDialog = true
                 }
+                .confirmationDialog(
+
+                            "項目を選択",
+
+                            isPresented: $showDialog,
+
+                            titleVisibility: .visible
+
+                        ) {
+
+                            Button("名前") {
+
+                                selectedText = "りんご"
+
+                            }
+
+                            Button("住所") {
+
+                                selectedText = "みかん"
+
+                            }
+
+                            Button("リンク") {
+
+                                selectedText = "バナナ"
+
+                            }
+                            Button("メール") {
+
+                                selectedText = "バナナ"
+
+                            }
+
+                            Button("キャンセル", role: .cancel) {
+
+                            }
+
+                        }
             }
             HStack {
                 ForEach(card.tags, id: \.self) { tag in
