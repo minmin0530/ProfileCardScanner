@@ -25,17 +25,15 @@
 //    }
 //}
 
-
 class Tagger {
     static func generateTags(from text: String, groups: [TagGroup]) -> [String] {
         var tags: [String] = []
         let t = text.lowercased()
         
-        
         for group in groups {
             for tag in group.tags {
-                if t.contains(tag) {
-                    tags.append(group.name)
+                if t.contains(tag.tag) {
+                    tags.append(group.tags[0].tag)
                 }
             }
         }

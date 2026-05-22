@@ -28,10 +28,31 @@ struct MyCardScannerApp2: View {
     @State private var newGroupName = ""
     @State private var newTagName = ""
     @State private var groups: [TagGroup] = [
-        TagGroup(name: "営業ターゲット", tags: ["経営者", "営業", "代表"], colorHex: "007AFF"),
-        TagGroup(name: "技術系", tags: ["IT", "エンジニア"], colorHex: "7AFF7A"),
-        TagGroup(name: "管理", tags: ["リーダー", "マネージャー", "課長", "部長",], colorHex: "FFFF7A"),
-        TagGroup(name: "未分類", tags: ["未分類"], colorHex: "7A7A7A")
+        TagGroup(
+            name: "営業ターゲット",
+            tags: [Line(tag: "経営者",button: ""), Line(tag: "営業",button: "")],
+            colorHex: "007AFF"
+        ),
+        TagGroup(
+            name: "技術系",
+            tags: [Line(tag:"IT", button: ""), Line(tag:"エンジニア", button: "")],
+            colorHex: "7AFF7A"
+        ),
+        TagGroup(
+            name: "管理",
+            tags: [
+                Line(tag:"リーダー",button: ""),
+                Line(tag:"マネージャー",button: ""),
+                Line(tag:"課長",button: ""),
+                Line(tag:"部長",button: "")
+            ],
+            colorHex: "FFFF7A"
+        ),
+        TagGroup(
+            name: "未分類",
+            tags: [Line(tag:"未分類",button: "")],
+            colorHex: "7A7A7A"
+        )
     ]
     
     func groupedCards() -> [String: [BusinessCard]] {
@@ -53,8 +74,15 @@ struct MyCardScannerApp2: View {
             var groupCards: [BusinessCard] = []
             
             for card in cards {
-                if card.tags.contains(where: { group.tags.contains($0) }) {
-                    groupCards.append(card)
+                for tag in card.tags {
+                    if tag.contains(where: {
+                        for gtag in group.tags {
+                            return gtag.tag.contains($0)
+                        }
+                        return false
+                    }) {
+                        groupCards.append(card)
+                    }
                 }
             }
             
@@ -222,15 +250,15 @@ struct MyCardScannerApp2: View {
 //                    Text("testcode")
 //                }
 
-//                ScanView(cards: $cards, groups: groups)
-//
-//                    .tabItem {
-//
-//                        Image(systemName: "viewfinder")
-//
-//                        Text("スキャン")
-//
-//                    }
+                ScanView(cards: $cards, groups: groups)
+
+                    .tabItem {
+
+                        Image(systemName: "viewfinder")
+
+                        Text("スキャン")
+
+                    }
 
                 
 
@@ -321,30 +349,17 @@ struct ScanView: View {
                     
 
                     let card = BusinessCard(
-
                         name: "",
-
                         company: extractCompany(from: text),
-
                         rawText: text,
-
-                        tags: tags
-
+                        tags: tags,
+                        manual: Line(tag: "manual", button: "ZZZZ")
                     )
-
-                    
-
                     cards.append(card) // ←ここが重要
-
                 }
-
             }
-
         }
-
     }
-
-    
 
     func extractCompany(from text: String) -> String {
 
@@ -436,7 +451,15 @@ struct HomeView: View {
     
     func countCards(group: TagGroup) -> Int {
         cards.filter { card in
-            card.tags.contains(where: { group.tags.contains($0) })
+            for tag in card.tags {
+                return tag.contains(where: {
+                    for gtag in group.tags {
+                        return gtag.tag.contains($0)
+                    }
+                    return false
+                })
+            }
+            return false
         }.count
     }
     func colorForGroup(_ name: String) -> Color {
@@ -498,7 +521,7 @@ struct SectionHeader: View {
 struct GroupRow: View {
     
     var name: String
-    var tags: [String]
+    var tags: [Line]
     var count: Int
     var color: Color
 //    let count: countCards(group: group)
@@ -515,8 +538,8 @@ struct GroupRow: View {
                     .font(.headline)
                 
                 HStack {
-                    ForEach(tags, id: \.self) { tag in
-                        Text(tag)
+                    ForEach(tags) { tag in
+                        Text(tag.tag)
                             .font(.caption)
                             .padding(4)
                             .background(color.opacity(0.2))
@@ -581,9 +604,12 @@ struct CardRow: View {
             Text(card.company)
                 .font(.headline)
             
-            Text(card.rawText)
-                .font(.caption)
             
+            ForEach (card.rawText.components(separatedBy: "\n"), id: \.self) { rawtext in
+                Button(rawtext) {
+                    
+                }
+            }
             HStack {
                 ForEach(card.tags, id: \.self) { tag in
                     Text(tag)
@@ -661,8 +687,8 @@ struct SettingsView: View {
     @Binding var groups: [TagGroup]
     
     @State private var newGroupName = ""
-    @State private var newTag = ""
-    @State private var tags: [String] = []
+    @State private var newTag = Line(tag: "", button: "")
+    @State private var tags: [Line] = []
     @State private var selectedColor: Color = .blue
     
     var body: some View {
@@ -676,13 +702,13 @@ struct SettingsView: View {
                 
                 // タグ追加
                 HStack {
-                    TextField("タグ追加", text: $newTag)
+                    TextField("タグ追加", text: $newTag.tag)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     
                     Button("追加") {
-                        guard !newTag.isEmpty else { return }
+                        guard !newTag.tag.isEmpty else { return }
                         tags.append(newTag)
-                        newTag = ""
+                        newTag = Line(tag: "", button: "")
                     }
                 }
                 .padding(.horizontal)
@@ -690,8 +716,8 @@ struct SettingsView: View {
                 // タグ一覧
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(tags, id: \.self) { tag in
-                            Text(tag)
+                        ForEach(tags) { tag in
+                            Text(tag.tag)
                                 .padding(6)
                                 .background(Color.gray.opacity(0.2))
                                 .cornerRadius(6)

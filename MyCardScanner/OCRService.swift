@@ -13,7 +13,7 @@ class OCRService {
         guard let cgImage = image.cgImage else { return }
         
         let request = VNRecognizeTextRequest { request, _ in
-            let text = request.results?
+            var text = request.results?
                 .compactMap { ($0 as? VNRecognizedTextObservation)?.topCandidates(1).first?.string }
                 .joined(separator: "\n") ?? ""
             
