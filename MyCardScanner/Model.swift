@@ -9,6 +9,7 @@ import Foundation
 
 struct BusinessCard: Identifiable, Codable {
     var id = UUID()
+    var createdAt: Date = .init()
     var name: String
     var company: String
     var rawText: String

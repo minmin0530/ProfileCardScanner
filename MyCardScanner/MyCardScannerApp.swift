@@ -368,15 +368,110 @@ struct ScanView: View {
     }
 
 }
+enum SortType {
 
+    case name
+
+    case company
+
+    case date
+
+}
 struct CardListView: View {
     var cards: [BusinessCard]
     var groups: [TagGroup]
-    var body: some View {
-        List(cards) { card in
-            CardRow(card: card, groups: groups)
+//    var body: some View {
+//        List(cards) { card in
+//            CardRow(card: card, groups: groups)
+//        }
+//    }
+    @State private var sortType: SortType = .date
+    
+    var sortedCards: [BusinessCard] {
+
+        switch sortType {
+
+        case .name:
+
+            return cards.sorted {
+
+                $0.name.localizedCompare($1.name) == .orderedAscending
+
+            }
+
+        case .company:
+
+            return cards.sorted {
+
+                $0.company.localizedCompare($1.company) == .orderedAscending
+
+            }
+
+        case .date:
+
+            return cards.sorted {
+
+                $0.createdAt > $1.createdAt
+
+            }
+
         }
+
     }
+    
+    var body: some View {
+
+        VStack {
+
+            HStack(spacing: 12) {
+
+                Button("名前") {
+
+                    sortType = .name
+
+                }
+
+                Button("会社名") {
+
+                    sortType = .company
+
+                }
+
+                Button("日時") {
+
+                    sortType = .date
+
+                }
+
+            }
+
+            .padding()
+
+            List(sortedCards) { card in
+
+                VStack(alignment: .leading) {
+
+                    Text(card.name)
+
+                        .font(.headline)
+
+                    Text(card.company)
+
+                        .font(.subheadline)
+
+                    Text(card.createdAt.formatted())
+
+                        .font(.caption)
+
+                }
+
+            }
+
+        }
+
+    }
+    
+    
 }
 
 struct HomeView: View {
