@@ -1,0 +1,144 @@
+{
+  "source": "/Users/izumiyoshiki/Documents/MyCardScanner/MyCardScanner/MyCardScannerApp.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "ホーム",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 206
+        }
+      },
+      {
+        "comment": "",
+        "key": "名刺一覧",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 218
+        }
+      },
+      {
+        "comment": "",
+        "key": "スキャン",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 230
+        }
+      },
+      {
+        "comment": "",
+        "key": "タグ",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 239
+        }
+      },
+      {
+        "comment": "",
+        "key": "設定",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 245
+        }
+      },
+      {
+        "comment": "",
+        "key": "名刺をスキャン",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 302
+        }
+      },
+      {
+        "comment": "",
+        "key": "ダッシュボード",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 375
+        }
+      },
+      {
+        "comment": "",
+        "key": "すべて見る",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 490
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld枚",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 529
+        }
+      },
+      {
+        "comment": "",
+        "key": "タグ管理",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 627
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld件",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 621
+        }
+      },
+      {
+        "comment": "",
+        "key": "グループ設定",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 745
+        }
+      },
+      {
+        "comment": "",
+        "key": "グループ名",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 672
+        }
+      },
+      {
+        "comment": "",
+        "key": "色を選択",
+        "location": {
+          "startingColumn": 29,
+          "startingLine": 703
+        }
+      },
+      {
+        "comment": "",
+        "key": "グループ作成",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 707
+        }
+      },
+      {
+        "comment": "",
+        "key": "タグ追加",
+        "location": {
+          "startingColumn": 31,
+          "startingLine": 678
+        }
+      },
+      {
+        "comment": "",
+        "key": "追加",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 681
+        }
+      }
+    ]
+  },
+  "version": 1
+}

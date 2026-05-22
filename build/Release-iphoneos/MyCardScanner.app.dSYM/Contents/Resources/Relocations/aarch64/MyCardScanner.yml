@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/izumiyoshiki/Documents/MyCardScanner/build/Release-iphoneos/MyCardScanner.app/MyCardScanner'
+relocations:     []
+...
