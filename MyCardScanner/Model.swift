@@ -13,5 +13,6 @@ struct BusinessCard: Identifiable, Codable {
     var company: String
     var rawText: String
     var tags: [String]
+    var manual: Line
 }
     

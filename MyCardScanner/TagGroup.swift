@@ -10,6 +10,6 @@ import Foundation
 struct TagGroup: Identifiable, Codable {
     var id = UUID()
     var name: String
-    var tags: [String] // このグループに属するタグ
+    var tags: [Line] // このグループに属するタグ
     var colorHex: String   // ← 色はHexで管理（保存しやすい）
 }

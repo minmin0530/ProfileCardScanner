@@ -31,7 +31,7 @@ struct GroupDetailView: View {
 
                 group.tags.contains { groupTag in
 
-                    normalize(tag).contains(normalize(groupTag))
+                    normalize(tag).contains(normalize(groupTag.tag))
                 }
 
             }
